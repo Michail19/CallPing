@@ -2,6 +2,7 @@ package com.me.callping.sender
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
+import android.bluetooth.le.AdvertiseCallback
 import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
@@ -66,7 +67,26 @@ class BleTransport (
         Log.d(TAG, "BLE advertise stopped")
     }
 
+    // --- Helpers ---
+
+    private fun encodeEvent(event: CallEvent): ByteArray {
+        return byteArrayOf(
+            when (event.type.name) {
+                "INCOMING_CALL" -> 0x01
+                else -> 0x00
+            }
+        )
+    }
+
+    private val advertiseCallback = object : AdvertiseCallback() {}
+
     companion object {
         private const val TAG = "BLETransport"
+
+        private const val MANUFACTURER_ID = 0x1234
+
+        private val SERVICE_UUID = android.os.ParcelUuid.fromString(
+            "12345678-1234-1234-1234-123456789abc"
+        )
     }
 }
