@@ -4,23 +4,23 @@ import android.os.Build
 import android.telecom.Call
 import android.telecom.CallScreeningService
 import android.util.Log
+import androidx.annotation.RequiresApi
 
 class CallHandlerService : CallScreeningService() {
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onScreenCall(callDetails: Call.Details) {
 
-        // Проверка на входящий звонок
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val direction = call.getDetails().getCallDirection();
-            if (direction == Call.Details.DIRECTION_INCOMING) {
-                return
-            }
+        // Checking for incoming call
+        if (callDetails.callDirection != Call.Details.DIRECTION_INCOMING) {
+            return
         }
-        else {
-            if (callDetails.callDirection != Call.Details.DIRECTION_INCOMING) {
-                return
-            }
-        }
+
+        // Logging call
+        Log.d(TAG, "Incoming call detected")
+
+        // Call processing
+        CallEventDispatcher.handleIncomingCall()
     }
 
     companion object {

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,7 +25,7 @@
         </activity>
 
         <service
-            android:name=".CallHandlerService"
+            android:name=".sender.CallHandlerService"
             android:permission="android.permission.BIND_SCREENING_SERVICE"
             android:exported="true">
             <intent-filter>
@@ -32,7 +34,7 @@
         </service>
 
         <service
-            android:name=".ListenerService"
+            android:name=".listener.ListenerService"
             android:foregroundServiceType="connectedDevice"
             android:exported="false"/>
 
