@@ -1,0 +1,34 @@
+package com.me.callping.listener
+
+import android.app.Notification
+import android.app.NotificationManager
+import android.content.Context
+import androidx.core.app.NotificationCompat
+import com.me.callping.R
+
+object NotificationController {
+
+    fun createServiceNotification(context: Context): Notification {
+        return NotificationCompat.Builder(context, CHANNEL_ID)
+            .setContentTitle("Call Listener")
+            .setContextText("Listening for incoming calls")
+            .setSmallIcon(R.drawable.ic_call)
+            .build()
+    }
+
+    fun showIncomingCall(context: Context) {
+        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setContentTitle("Incoming call")
+            .setContextText("Call received on paired device")
+            .setSmallIcon(R.drawable.ic_call)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        manager.notify(INCOMING_CALL_ID, notification)
+    }
+
+    private const val CHANNEL_ID = "call_listener"
+    private const val INCOMING_CALL_ID = 2001
+}
