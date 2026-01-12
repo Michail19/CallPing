@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.me.callping'
-    compileSdk 32
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.me.callping"
         minSdk 27
-        targetSdk 32
+        targetSdk 34
         versionCode 1
         versionName "0.1.0"
 
@@ -23,8 +23,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+    kotlinOptions {
+        jvmTarget = '21'
     }
 }
 

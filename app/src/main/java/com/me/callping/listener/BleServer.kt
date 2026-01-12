@@ -35,7 +35,7 @@ class BleServer(
 
     private val scanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult?) {
-            val data = result.scanRecord?.manufacturerSpecificData
+            val data = result?.scanRecord?.manufacturerSpecificData
             ?.get(BleConstants.MANUFACTURER_ID)
             ?: return
 
