@@ -11,7 +11,7 @@ object NotificationController {
     fun createServiceNotification(context: Context): Notification {
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle("Call Listener")
-            .setContextText("Listening for incoming calls")
+            .setContentText("Listening for incoming calls")
             .setSmallIcon(R.drawable.ic_call)
             .build()
     }
@@ -19,7 +19,7 @@ object NotificationController {
     fun showIncomingCall(context: Context) {
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle("Incoming call")
-            .setContextText("Call received on paired device")
+            .setContentText("Call received on paired device")
             .setSmallIcon(R.drawable.ic_call)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
