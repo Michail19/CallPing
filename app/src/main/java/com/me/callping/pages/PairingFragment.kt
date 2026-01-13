@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.core.R
 import androidx.fragment.app.Fragment
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 import com.me.callping.model.PairedDevice
 import com.me.callping.model.PairingViewModel
 import com.me.callping.tools.QrBitmapGenerator
