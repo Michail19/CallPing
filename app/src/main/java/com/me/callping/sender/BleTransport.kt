@@ -8,6 +8,7 @@ import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
 import android.content.Context
 import android.util.Log
+import com.me.callping.listener.BleConstants
 import com.me.callping.model.CallEvent
 import java.util.UUID
 
@@ -48,9 +49,9 @@ class BleTransport (
             .build()
 
         val data = AdvertiseData.Builder()
-            .addServiceUuid(SERVICE_UUID)
+            .addServiceUuid(BleConstants.SERVICE_UUID)
             .addManufacturerData(
-                MANUFACTURER_ID,
+                BleConstants.MANUFACTURER_ID,
                 encodeEvent(event)
             )
             .setIncludeDeviceName(false)
@@ -82,11 +83,5 @@ class BleTransport (
 
     companion object {
         private const val TAG = "BLETransport"
-
-        private const val MANUFACTURER_ID = 0x1234
-
-        private val SERVICE_UUID = android.os.ParcelUuid.fromString(
-            "12345678-1234-1234-1234-123456789abc"
-        )
     }
 }
