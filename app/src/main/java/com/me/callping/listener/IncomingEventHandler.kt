@@ -20,7 +20,7 @@ class IncomingEventHandler(
         if (payload.isEmpty()) return null
 
         val type = when (payload[0]) {
-            0x01.toByte() -> CallEventType.INCOMING_CALL
+            BleConstants.EVENT_INCOMING_CALL -> CallEventType.INCOMING_CALL
             else -> return null
         }
 
