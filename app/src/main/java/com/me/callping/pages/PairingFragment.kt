@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import androidx.core.R
 import androidx.fragment.app.Fragment
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import com.me.callping.R
 import com.me.callping.model.PairedDevice
 import com.me.callping.model.PairingViewModel
 import com.me.callping.tools.QrBitmapGenerator
 import com.me.callping.tools.QrPayloadBuilder
 import org.json.JSONObject
+import androidx.fragment.app.viewModels
 
 class PairingFragment : Fragment(R.layout.fragment_pairing) {
 
-    private val viewModel: PairingViewModel by viewModel()
+    private val viewModel: PairingViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
