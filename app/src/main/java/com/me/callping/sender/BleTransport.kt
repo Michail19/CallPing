@@ -71,12 +71,13 @@ class BleTransport (
     // --- Helpers ---
 
     private fun encodeEvent(event: CallEvent): ByteArray {
-        return byteArrayOf(
-            when (event.type.name) {
-                "INCOMING_CALL" -> 0x01
-                else -> 0x00
-            }
-        )
+        return byteArrayOf(BleConstants.EVENT_INCOMING_CALL)
+//        return byteArrayOf(
+//            when (event.type.name) {
+//                "INCOMING_CALL" -> 0x01
+//                else -> 0x00
+//            }
+//        )
     }
 
     private val advertiseCallback = object : AdvertiseCallback() {}
