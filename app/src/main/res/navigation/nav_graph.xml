@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.me.callping.ui.HomeFragment"
+        android:label="Home">
+
+        <action
+            android:id="@+id/action_home_to_scanQr"
+            app:destination="@id/scanQrFragment" />
+
+        <action
+            android:id="@+id/action_home_to_devices"
+            app:destination="@id/deviceListFragment" />
+
+        <action
+            android:id="@+id/action_home_to_generateQr"
+            app:destination="@id/generateQrFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/scanQrFragment"
+        android:name="com.me.callping.ui.pairing.scan.ScanQrFragment"
+        android:label="Scan QR" />
+
+    <fragment
+        android:id="@+id/deviceListFragment"
+        android:name="com.me.callping.ui.devices.DeviceListFragment"
+        android:label="Devices" />
+
+    <fragment
+        android:id="@+id/generateQrFragment"
+        android:name="com.me.callping.ui.pairing.generate.GenerateQrFragment"
+        android:label="My QR" />
+
+</navigation>
