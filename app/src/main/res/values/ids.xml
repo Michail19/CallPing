@@ -2,4 +2,6 @@
 <resources>
     <item name="qrImage" type="id" />
     <item name="scanQrButton" type="id" />
+    <item name="progress" type="id" />
+    <item name="errorText" type="id" />
 </resources>
