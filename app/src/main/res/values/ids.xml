@@ -4,4 +4,8 @@
     <item name="scanQrButton" type="id" />
     <item name="progress" type="id" />
     <item name="errorText" type="id" />
+    <item name="deviceName" type="id" />
+    <item name="removeButton" type="id" />
+    <item name="recycler" type="id" />
+    <item name="emptyText" type="id" />
 </resources>

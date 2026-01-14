@@ -4,5 +4,5 @@ import com.me.callping.core.pairing.PairedDevice
 
 data class DeviceListState (
     val devices: List<PairedDevice> = emptyList(),
-    val isEmpty: Boolean = false
+    val isEmpty: Boolean = devices.isEmpty()
 )
