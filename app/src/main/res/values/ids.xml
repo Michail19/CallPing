@@ -2,6 +2,4 @@
 <resources>
     <item name="qrImage" type="id" />
     <item name="scanQrButton" type="id" />
-    <item name="bottom_navigation" type="id" />
-    <item name="nav_host_fragment" type="id" />
 </resources>
