@@ -1,8 +1,8 @@
-package com.me.callping.listener
+package com.me.callping.core.call
 
 import android.content.Context
-import com.me.callping.model.CallEvent
-import com.me.callping.model.CallEventType
+import com.me.callping.core.BleConstants
+import com.me.callping.notification.NotificationController
 
 class IncomingEventHandler(
     private val context: Context

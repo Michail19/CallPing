@@ -1,4 +1,4 @@
-package com.me.callping.model
+package com.me.callping.core.pairing
 
 data class PairedDevice (
     val id: String,

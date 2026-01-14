@@ -1,4 +1,4 @@
-package com.me.callping.pages
+package com.me.callping.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

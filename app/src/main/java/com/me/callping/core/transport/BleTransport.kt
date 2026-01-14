@@ -1,4 +1,4 @@
-package com.me.callping.sender
+package com.me.callping.core.transport
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
@@ -8,9 +8,8 @@ import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
 import android.content.Context
 import android.util.Log
-import com.me.callping.listener.BleConstants
-import com.me.callping.model.CallEvent
-import java.util.UUID
+import com.me.callping.core.BleConstants
+import com.me.callping.core.call.CallEvent
 
 class BleTransport (
     private val context: Context

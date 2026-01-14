@@ -1,4 +1,4 @@
-package com.me.callping.listener
+package com.me.callping.core.transport
 
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.ScanCallback
@@ -6,6 +6,8 @@ import android.bluetooth.le.ScanFilter
 import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
 import android.content.Context
+import com.me.callping.core.BleConstants
+import com.me.callping.core.call.IncomingEventHandler
 
 class BleServer(
     private val context: Context,

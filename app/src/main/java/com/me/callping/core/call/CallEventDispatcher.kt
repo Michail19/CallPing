@@ -1,8 +1,7 @@
-package com.me.callping.sender
+package com.me.callping.core.call
 
 import android.util.Log
-import com.me.callping.model.CallEvent
-import com.me.callping.model.CallEventType
+import com.me.callping.core.transport.TransportManager
 
 object CallEventDispatcher {
 

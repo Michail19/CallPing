@@ -1,4 +1,4 @@
-package com.me.callping.model
+package com.me.callping.core.call
 
 data class CallEvent (
     val type: CallEventType,

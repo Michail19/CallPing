@@ -1,4 +1,4 @@
-package com.me.callping.pages
+package com.me.callping.ui.pairing
 
 import android.os.Bundle
 import android.view.View
@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import com.me.callping.R
-import com.me.callping.model.PairedDevice
-import com.me.callping.model.PairingViewModel
+import com.me.callping.core.pairing.PairedDevice
+import com.me.callping.core.pairing.PairingViewModel
 import com.me.callping.tools.QrBitmapGenerator
 import com.me.callping.tools.QrPayloadBuilder
 import org.json.JSONObject

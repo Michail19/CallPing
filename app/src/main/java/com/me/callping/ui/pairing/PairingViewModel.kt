@@ -1,9 +1,9 @@
-package com.me.callping.pages
+package com.me.callping.ui.pairing
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.me.callping.model.PairedDevice
+import com.me.callping.core.pairing.PairedDevice
 
 class PairingViewModel : ViewModel() {
     

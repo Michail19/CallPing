@@ -1,6 +1,6 @@
-package com.me.callping.sender
+package com.me.callping.core.transport
 
-import com.me.callping.model.CallEvent
+import com.me.callping.core.call.CallEvent
 
 interface Transport {
     fun start() // Initialization of transport

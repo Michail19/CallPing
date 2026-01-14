@@ -1,9 +1,11 @@
-package com.me.callping.listener
+package com.me.callping.service
 
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-
+import com.me.callping.core.call.IncomingEventHandler
+import com.me.callping.core.transport.BleServer
+import com.me.callping.notification.NotificationController
 
 class ListenerService : Service() {
 
