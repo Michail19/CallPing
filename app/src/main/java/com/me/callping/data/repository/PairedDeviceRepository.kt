@@ -1,10 +1,12 @@
 package com.me.callping.data.repository
 
 import com.me.callping.core.pairing.PairedDevice
-import kotlinx.coroutines.flow.Flow
+import com.me.callping.data.local.PairedDeviceDataSource
 
-interface PairedDeviceRepository {
-    fun observeDevice(): Flow<List<PairedDevice>>
-    suspend fun addDevice(device: PairedDevice)
-    suspend fun removeDevice(id: String)
+class PairedDeviceRepository (
+    private val dataSource: PairedDeviceDataSource
+) {
+    fun getDevices(): List<PairedDevice> = dataSource.getAll()
+    fun addDevice(device: PairedDevice) = dataSource.save(device)
+    fun removeDevice(id: String) = dataSource.remove(id)
 }
