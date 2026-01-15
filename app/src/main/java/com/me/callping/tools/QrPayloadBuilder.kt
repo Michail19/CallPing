@@ -1,8 +1,8 @@
 package com.me.callping.tools
 
 import android.os.Build
-import com.me.callping.listener.BleConstants
-import com.me.callping.model.PairingPayload
+import com.me.callping.core.BleConstants
+import com.me.callping.core.pairing.PairingPayload
 import org.json.JSONObject
 
 object QrPayloadBuilder {
