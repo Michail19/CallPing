@@ -9,11 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.me.callping.R
+import com.me.callping.tools.QrBitmapGenerator
+import com.me.callping.tools.QrPayloadBuilder
 import kotlinx.coroutines.launch
 
 class GenerateQrFragment : Fragment(R.layout.fragment_generate_qr) {
 
-    private val viewModel: GenerateQrViewModel by viewModels()
+    private val viewModel: GenerateQrViewModel by viewModels {
+        GenerateQrViewModelFactory(
+            payloadBuilder = QrPayloadBuilder,
+            qrGenerator = QrBitmapGenerator
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

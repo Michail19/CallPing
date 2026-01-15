@@ -17,7 +17,9 @@ class GenerateQrViewModel(
     val state: StateFlow<GenerateQrState> = _state
 
     init {
-        generateQR()
+        if (_state.value is GenerateQrState.Loading) {
+            generateQR()
+        }
     }
 
     private fun generateQR() {
