@@ -2,10 +2,12 @@ package com.me.callping.ui.devices
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.me.callping.R
@@ -43,6 +45,10 @@ class DeviceListFragment : Fragment(R.layout.fragment_device_list) {
                 emptyText.visibility =
                     if (state.isEmpty) View.VISIBLE else View.GONE
             }
+        }
+
+        view.findViewById<Button>(R.id.scanButton).setOnClickListener {
+            findNavController().navigate(R.id.action_deviceListFragment_to_scanQrFragment)
         }
     }
 }

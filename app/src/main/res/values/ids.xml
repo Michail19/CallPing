@@ -8,4 +8,5 @@
     <item name="removeButton" type="id" />
     <item name="recycler" type="id" />
     <item name="emptyText" type="id" />
+    <item name="action_deviceListFragment_to_scanQrFragment" type="id" />
 </resources>

@@ -26,12 +26,25 @@
     <fragment
         android:id="@+id/scanQrFragment"
         android:name="com.me.callping.ui.pairing.scan.ScanQrFragment"
-        android:label="Scan QR" />
+        android:label="Scan QR">
+
+        <action
+            android:id="@+id/action_scanQrFragment_to_deviceListFragment"
+            app:destination="@id/deviceListFragment"
+            app:popUpTo="@id/deviceListFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/deviceListFragment"
         android:name="com.me.callping.ui.devices.DeviceListFragment"
-        android:label="Devices" />
+        android:label="Devices">
+
+        <action
+            android:id="@+id/action_deviceListFragment_to_scanQrFragment"
+            app:destination="@id/scanQrFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/generateQrFragment"

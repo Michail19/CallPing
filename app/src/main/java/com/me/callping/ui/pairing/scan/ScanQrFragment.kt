@@ -10,10 +10,9 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import com.me.callping.R
 import com.me.callping.core.pairing.PairingViewModel
-import com.me.callping.data.repository.PairedDeviceRepository
 import kotlinx.coroutines.launch
 
-class ScanQrFragment : Fragment(R.layout.fragment_scan_qr){
+class ScanQrFragment : Fragment(R.layout.fragment_device_list){
 
     private val viewModel: ScanQrViewModel by viewModels()
     private val pairingSharedViewModel: PairingViewModel by viewModels()
@@ -26,10 +25,11 @@ class ScanQrFragment : Fragment(R.layout.fragment_scan_qr){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.scanQrButton).setOnClickListener {
-            startScan()
-        }
+//        view.findViewById<Button>(R.id.scanQrButton).setOnClickListener {
+//            startScan()
+//        }
 
+        startScan()
         observeState()
     }
 
