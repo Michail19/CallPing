@@ -7,6 +7,7 @@ import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
 import android.content.Context
 import com.me.callping.core.BleConstants
+import com.me.callping.core.call.CallEvent
 import com.me.callping.core.call.IncomingEventHandler
 
 class BleServer(
@@ -37,11 +38,14 @@ class BleServer(
 
     private val scanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult?) {
-            val data = result?.scanRecord?.manufacturerSpecificData
-            ?.get(BleConstants.MANUFACTURER_ID)
-            ?: return
+            val data = result?.scanRecord
+                ?.manufacturerSpecificData
+                ?.get(BleConstants.MANUFACTURER_ID)
+                ?: return
 
-            eventHandler.handle(data)
+            val event = CallEvent.fromPayload(data) ?: return
+
+            eventHandler.handle(event)
         }
     }
 }

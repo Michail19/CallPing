@@ -1,5 +1,6 @@
 package com.me.callping.core.transport
 
+import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.AdvertiseCallback
@@ -8,6 +9,7 @@ import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
 import android.content.Context
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import com.me.callping.core.BleConstants
 import com.me.callping.core.call.CallEvent
 
@@ -38,12 +40,15 @@ class BleTransport (
                 bluetoothAdapter!!.isMultipleAdvertisementSupported
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_ADVERTISE)
     override fun send(event: CallEvent) {
         val advertiser = advertiser ?: return
 
+        advertiser.stopAdvertising(advertiseCallback)
+
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
-            .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_LOW)
+            .setTxPowerLevel(AdvertiseSettings.ADVERTISE_TX_POWER_HIGH)
             .setConnectable(false)
             .build()
 
@@ -51,7 +56,7 @@ class BleTransport (
             .addServiceUuid(BleConstants.SERVICE_UUID)
             .addManufacturerData(
                 BleConstants.MANUFACTURER_ID,
-                encodeEvent(event)
+                event.toPayload()
             )
             .setIncludeDeviceName(false)
             .build()
@@ -61,6 +66,7 @@ class BleTransport (
         Log.d(TAG, "Advertising CallEvent: $event")
     }
 
+    @RequiresPermission(Manifest.permission.BLUETOOTH_ADVERTISE)
     override fun stop() {
         advertiser?.stopAdvertising(advertiseCallback)
         advertiser = null
