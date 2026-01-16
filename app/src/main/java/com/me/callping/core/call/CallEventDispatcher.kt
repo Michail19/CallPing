@@ -5,6 +5,8 @@ import com.me.callping.core.transport.TransportManager
 
 object CallEventDispatcher {
 
+    private var pendingEvent: CallEvent? = null
+
     fun handleIncomingCall() {
         // Variable for storing a custom type of CallEvent
         val event = CallEvent(
@@ -15,7 +17,18 @@ object CallEventDispatcher {
         Log.d(TAG, "Dispatching incoming call event")
 
         // Send message
+        pendingEvent = event
         TransportManager.send(event)
+    }
+
+    fun retryIfPending() {
+        pendingEvent?.let {
+            TransportManager.send(it)
+        }
+    }
+
+    fun clearPending() {
+        pendingEvent = null
     }
 
     private const val TAG = "CallHandlerService"

@@ -16,16 +16,19 @@ class IncomingCallReceiver : BroadcastReceiver() {
 
         Log.d("CALLPING", state.toString())
 
-        // Проверяем, что это именно начало звонка (RINGING)
-        if (state == TelephonyManager.EXTRA_STATE_RINGING) {
-            // Номер телефона (требует разрешения READ_CALL_LOG)
-            val incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
-
-            // Запускаем наш сервис
-            val serviceIntent = Intent(context, CallHandlerService::class.java).apply {
-                putExtra("EXTRA_NUMBER", incomingNumber)
+        // Проверяем, что это звонок
+        when (state) {
+            TelephonyManager.EXTRA_STATE_RINGING -> {
+                val serviceIntent = Intent(context, CallHandlerService::class.java)
+                ContextCompat.startForegroundService(context, serviceIntent)
             }
-            ContextCompat.startForegroundService(context, serviceIntent)
+
+            TelephonyManager.EXTRA_STATE_IDLE -> {
+                // Звонок завершён → останавливаем сервис
+                context.stopService(
+                    Intent(context, CallHandlerService::class.java)
+                )
+            }
         }
     }
 }

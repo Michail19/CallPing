@@ -8,10 +8,13 @@ import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresPermission
 import com.me.callping.core.BleConstants
 import com.me.callping.core.call.CallEvent
+import com.me.callping.core.call.CallEventDispatcher
 
 class BleTransport (
     private val context: Context
@@ -35,9 +38,14 @@ class BleTransport (
     }
 
     override fun isAvailable(): Boolean {
-        return bluetoothAdapter != null &&
-                bluetoothAdapter!!.isEnabled &&
-                bluetoothAdapter!!.isMultipleAdvertisementSupported
+        val adapterExists = bluetoothAdapter != null
+        val enabled = bluetoothAdapter?.isEnabled == true
+        val advSupported = bluetoothAdapter?.isMultipleAdvertisementSupported == true
+
+        Log.d(TAG, "BLE check: adapter=$adapterExists enabled=$enabled advSupported=$advSupported")
+
+        return adapterExists && enabled && advSupported
+
     }
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_ADVERTISE)
@@ -63,6 +71,11 @@ class BleTransport (
 
         advertiser.startAdvertising(settings, data, advertiseCallback)
 
+        Handler(Looper.getMainLooper()).postDelayed({
+            advertiser.stopAdvertising(advertiseCallback)
+            CallEventDispatcher.clearPending()
+        }, 5_000)
+
         Log.d(TAG, "Advertising CallEvent: $event")
     }
 
@@ -85,7 +98,18 @@ class BleTransport (
 //        )
     }
 
-    private val advertiseCallback = object : AdvertiseCallback() {}
+    private val advertiseCallback = object : AdvertiseCallback() {
+
+        override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
+            Log.d(TAG, "BLE advertising started")
+            CallEventDispatcher.retryIfPending()
+        }
+
+        override fun onStartFailure(errorCode: Int) {
+            Log.e(TAG, "BLE advertising failed: $errorCode")
+        }
+    }
+
 
     companion object {
         private const val TAG = "BLETransport"

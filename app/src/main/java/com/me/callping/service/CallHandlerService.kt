@@ -39,13 +39,12 @@ class CallHandlerService : Service() {
     }
 
     private fun createNotification(): Notification {
-        val channelId = "call_ping_channel"
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Call Notifications", NotificationManager.IMPORTANCE_LOW)
+            val channel = NotificationChannel(CHANNEL_ID, "Call Notifications", NotificationManager.IMPORTANCE_LOW)
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
         }
 
-        return NotificationCompat.Builder(this, channelId)
+        return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Call Ping Active")
             .setContentText("Обработка входящего вызова...")
             .setSmallIcon(R.drawable.ic_launcher_background) // Замените на вашу иконку
@@ -55,11 +54,13 @@ class CallHandlerService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onDestroy() {
+        getSystemService(NotificationManager::class.java).deleteNotificationChannel(CHANNEL_ID)
         TransportManager.unregisterAll()
         super.onDestroy()
     }
 
     companion object {
         private const val TAG = "CallHandlerService"
+        private const val CHANNEL_ID = "call_ping_channel"
     }
 }
