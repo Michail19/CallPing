@@ -11,33 +11,21 @@ import com.me.callping.core.call.CallEventDispatcher
 class IncomingCallReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent?) {
-        // Проверка на null и корректность экшена
-        if (intent == null || intent.action != TelephonyManager.ACTION_PHONE_STATE_CHANGED) return
-
-        // Получаем состояние звонка
-        val state = intent.getStringExtra(TelephonyManager.EXTRA_STATE)
+        // Проверяем состояние звонка
+        val state = intent?.getStringExtra(TelephonyManager.EXTRA_STATE)
 
         Log.d("CALLPING", state.toString())
 
         // Проверяем, что это именно начало звонка (RINGING)
         if (state == TelephonyManager.EXTRA_STATE_RINGING) {
+            // Номер телефона (требует разрешения READ_CALL_LOG)
+            val incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER)
 
-            // Формируем Intent для запуска вашего ListenerService
+            // Запускаем наш сервис
             val serviceIntent = Intent(context, CallHandlerService::class.java).apply {
-                // Передаем флаг события
-                putExtra("CALL_EVENT", "INCOMING")
-                // Можно добавить флаг для идентификации, что запуск пришел именно из ресивера
-                action = "ACTION_START_BLE_ADVERTISING"
+                putExtra("EXTRA_NUMBER", incomingNumber)
             }
-
-            try {
-                // В Android 10+ запуск Foreground сервиса из фона разрешен
-                // во время активного входящего звонка
-                ContextCompat.startForegroundService(context, serviceIntent)
-            } catch (e: Exception) {
-                // Логируем ошибку, если система все же заблокировала запуск
-                e.printStackTrace()
-            }
+            ContextCompat.startForegroundService(context, serviceIntent)
         }
     }
 }

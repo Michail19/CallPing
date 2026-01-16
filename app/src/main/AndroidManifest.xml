@@ -28,6 +28,7 @@
     <!-- Общие разрешения -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -54,11 +55,18 @@
         </activity>
 
         <!-- Receiver для входящих звонков -->
-        <receiver android:name=".service.IncomingCallReceiver" android:exported="true">
+        <receiver
+            android:name=".service.IncomingCallReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".service.CallHandlerService"
+            android:exported="false"
+            android:foregroundServiceType="phoneCall" />
 
         <!-- ForegroundService для отправки события BLE -->
         <service
