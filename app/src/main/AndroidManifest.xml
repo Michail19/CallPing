@@ -54,9 +54,7 @@
         </activity>
 
         <!-- Receiver для входящих звонков -->
-        <receiver
-            android:name=".receiver.IncomingCallReceiver"
-            android:exported="true">
+        <receiver android:name=".service.IncomingCallReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
