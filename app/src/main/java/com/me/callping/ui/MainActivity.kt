@@ -7,6 +7,7 @@ import android.provider.Settings
 import android.telecom.TelecomManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import com.me.callping.R
@@ -20,6 +21,24 @@ class MainActivity : AppCompatActivity() {
         if (!isCallScreeningApp(this)) {
             showCallScreeningDialog(this)
         }
+
+        val telecom = getSystemService(Context.TELECOM_SERVICE) as TelecomManager
+        Log.e(
+            "CALL_PING",
+            "isDefaultCallScreeningApp = ${telecom.defaultDialerPackage == packageName}"
+        )
+
+        if (telecom.defaultDialerPackage != packageName) {
+            val intent = Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).apply {
+                putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName)
+            }
+            startActivity(intent)
+        }
+
+        Log.e(
+            "CALL_PING",
+            "defaultDialer = ${telecom.defaultDialerPackage}"
+        )
     }
 
     fun showCallScreeningDialog(context: Context) {
