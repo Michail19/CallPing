@@ -2,15 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Функции устройства -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
-    <!-- Для Android 12+ (API 31+) -->
+    <!-- Разрешения для BLE Android 12+ -->
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
         android:usesPermissionFlags="neverForLocation"
         tools:targetApi="31" />
@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
         tools:targetApi="31" />
 
-    <!-- Для старых версий Android -->
+    <!-- Разрешения для старых версий Android -->
     <uses-permission android:name="android.permission.BLUETOOTH"
         android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
@@ -27,15 +27,9 @@
 
     <!-- Общие разрешения -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE"
-        tools:targetApi="34" />
-
-    <!-- Для CallScreeningService (необязательно, но рекомендуется) -->
-    <uses-permission android:name="android.permission.READ_CALL_LOG" />
-    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
 
     <application
         android:allowBackup="true"
@@ -48,48 +42,34 @@
         android:theme="@style/Theme.CallPing"
         tools:targetApi="31">
 
+        <!-- Главная активити -->
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
             android:launchMode="singleTop">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.DIAL" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.CALL" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
         </activity>
 
-        <service
-            android:name=".service.CallHandlerService"
-            android:permission="android.permission.BIND_SCREENING_SERVICE"
+        <!-- Receiver для входящих звонков -->
+        <receiver
+            android:name=".receiver.IncomingCallReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.telecom.CallScreeningService" />
+                <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
+        </receiver>
 
-            <!-- Метаданные для CallScreeningService -->
-            <meta-data
-                android:name="android.telecom.CallScreeningService"
-                android:value="true" />
-        </service>
-
+        <!-- ForegroundService для отправки события BLE -->
         <service
             android:name=".service.ListenerService"
             android:foregroundServiceType="connectedDevice"
             android:exported="false"
             android:enabled="true"
             android:stopWithTask="false" />
+
 
     </application>
 
