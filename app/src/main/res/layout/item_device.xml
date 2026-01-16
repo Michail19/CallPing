@@ -28,10 +28,10 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/remove_device"
         android:src="@drawable/ic_delete_outline"
-        android:tint="?android:attr/textColorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:tint="?android:attr/textColorSecondary" />
 
     <View
         android:id="@+id/divider"
