@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
+import android.util.Log
 import androidx.core.content.ContextCompat
+import com.me.callping.core.call.CallEventDispatcher
 
 class IncomingCallReceiver : BroadcastReceiver() {
 
@@ -14,6 +16,8 @@ class IncomingCallReceiver : BroadcastReceiver() {
 
         // Получаем состояние звонка
         val state = intent.getStringExtra(TelephonyManager.EXTRA_STATE)
+
+        Log.d("CALLPING", state.toString())
 
         // Проверяем, что это именно начало звонка (RINGING)
         if (state == TelephonyManager.EXTRA_STATE_RINGING) {

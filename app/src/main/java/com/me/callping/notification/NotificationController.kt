@@ -12,7 +12,7 @@ object NotificationController {
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle("Call Listener")
             .setContentText("Listening for incoming calls")
-            .setSmallIcon(R.drawable.ic_call)
+            .setSmallIcon(R.drawable.ic_launcher_background)
             .build()
     }
 
@@ -20,7 +20,7 @@ object NotificationController {
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle("Incoming call")
             .setContentText("Call received on paired device")
-            .setSmallIcon(R.drawable.ic_call)
+            .setSmallIcon(R.drawable.ic_launcher_background)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
