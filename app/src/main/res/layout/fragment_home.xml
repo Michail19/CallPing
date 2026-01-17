@@ -5,26 +5,39 @@
     android:gravity="center"
     android:padding="24dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
 
-<!--    <Button-->
-<!--        android:id="@+id/scanQrButton"-->
-<!--        android:text="Scan QR"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"/>-->
+    <!--    <Button-->
+    <!--        android:id="@+id/scanQrButton"-->
+    <!--        android:text="Scan QR"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"/>-->
 
     <Button
         android:id="@+id/devicesButton"
         android:text="Подключенные устройства"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:padding="30dp"
+        android:elevation="4dp"
+        android:shape="rectangle"
+        android:clipToOutline="true"/>
 
     <Button
         android:id="@+id/showQrButton"
         android:text="Показать свой QR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#1976D2"
+        android:textColor="#FFFFFF"
+        android:padding="30dp"
+        android:elevation="4dp"
+        android:shape="rectangle"
+        android:clipToOutline="true"/>
 
 </LinearLayout>
