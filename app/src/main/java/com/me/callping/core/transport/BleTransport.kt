@@ -8,10 +8,12 @@ import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.BluetoothLeAdvertiser
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresPermission
+import androidx.core.content.ContextCompat
 import com.me.callping.core.BleConstants
 import com.me.callping.core.call.CallEvent
 import com.me.callping.core.call.CallEventDispatcher
@@ -65,6 +67,12 @@ class BleTransport (
 
         if (advertiser == null) {
             Log.e(TAG, "BLE advertiser is NULL — advertising not supported")
+            return
+        }
+
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_ADVERTISE)
+            != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "No BLUETOOTH_ADVERTISE permission")
             return
         }
 
