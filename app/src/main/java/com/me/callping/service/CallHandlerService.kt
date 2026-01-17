@@ -35,7 +35,7 @@ class CallHandlerService : Service() {
     }
 
     private fun createNotification(): Notification {
-        val channel = NotificationChannel(CHANNEL_ID, "Call Notifications", NotificationManager.IMPORTANCE_LOW)
+        val channel = NotificationChannel(CHANNEL_ID, "Уведомление об обработке вызова", NotificationManager.IMPORTANCE_LOW)
         getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
