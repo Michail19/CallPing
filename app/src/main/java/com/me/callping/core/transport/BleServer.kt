@@ -29,7 +29,7 @@ class BleServer(
             .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
             .build()
 
-        scanner.startScan(null, settings, scanCallback)
+        scanner.startScan(listOf(filter), settings, scanCallback)
     }
 
     fun stop() {
