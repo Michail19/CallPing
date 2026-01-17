@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class ScanQrFragment : Fragment(R.layout.fragment_device_list){
 
     private val viewModel: ScanQrViewModel by viewModels()
-    private val pairingSharedViewModel: PairingViewModel by viewModels()
+//    private val pairingSharedViewModel: PairingViewModel by viewModels()
 
     private val repository by lazy {
         PairedDeviceRepository(
@@ -43,9 +43,9 @@ class ScanQrFragment : Fragment(R.layout.fragment_device_list){
     private fun startScan() {
         val options = ScanOptions().apply {
             setDesiredBarcodeFormats(ScanOptions.QR_CODE)
-            setPrompt("Scan pairing QR")
+            setPrompt("Отсканируйте QR")
             setBeepEnabled(true)
-            setOrientationLocked(true)
+            setOrientationLocked(false)
         }
 
         scanLauncher.launch(options)
@@ -62,7 +62,7 @@ class ScanQrFragment : Fragment(R.layout.fragment_device_list){
                     }
 
                     is ScanQrState.Success -> {
-                        pairingSharedViewModel.addDevice(state.device)
+//                        pairingSharedViewModel.addDevice(state.device)
                         repository.addDevice(state.device)
                         findNavController().popBackStack()
                     }

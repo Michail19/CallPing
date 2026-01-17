@@ -51,4 +51,9 @@ class DeviceListFragment : Fragment(R.layout.fragment_device_list) {
             findNavController().navigate(R.id.action_deviceListFragment_to_scanQrFragment)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadDevices()
+    }
 }

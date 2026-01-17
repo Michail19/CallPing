@@ -49,7 +49,7 @@ object NotificationController {
 
         val notification = NotificationCompat.Builder(context, INCOMING_CALL)
             .setContentTitle("Входящий звонок")
-            .setContentText("Вызов принят на сопряженном устройстве") // .setContentText("Call received on paired device")
+            .setContentText("Идёт вызов на сопряженное устройство") // .setContentText("Call received on paired device")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .build()
