@@ -8,11 +8,9 @@ class IncomingEventHandler(
     private val context: Context
 ) {
 
-    fun handle(payload: ByteArray) {
-        val event = decode(payload) ?: return
-
-        when (event.type) {
-            CallEventType.INCOMING_CALL -> NotificationController.showIncomingCall(context)
+    fun handle(event: CallEvent) {
+        if (event.type == CallEventType.INCOMING_CALL) {
+            NotificationController.showIncomingCall(context)
         }
     }
 

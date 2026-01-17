@@ -2,15 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Функции устройства -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
 
-    <!-- Для Android 12+ (API 31+) -->
+    <!-- Разрешения для BLE Android 12+ -->
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
         android:usesPermissionFlags="neverForLocation"
         tools:targetApi="31" />
@@ -18,8 +18,12 @@
         tools:targetApi="31" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"
         tools:targetApi="31" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS"
+        tools:targetApi="31" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"
+        tools:targetApi="33" />
 
-    <!-- Для старых версий Android -->
+    <!-- Разрешения для старых версий Android -->
     <uses-permission android:name="android.permission.BLUETOOTH"
         android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
@@ -27,17 +31,16 @@
 
     <!-- Общие разрешения -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE"
-        tools:targetApi="34" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
 
-    <!-- Для CallScreeningService (необязательно, но рекомендуется) -->
-    <uses-permission android:name="android.permission.READ_CALL_LOG" />
-    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
 
     <application
+        android:name=".core.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -48,6 +51,7 @@
         android:theme="@style/Theme.CallPing"
         tools:targetApi="31">
 
+        <!-- Главная активити -->
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
@@ -58,19 +62,24 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            tools:replace="android:screenOrientation" />
+
+        <!-- Receiver для входящих звонков -->
+        <receiver
+            android:name=".service.IncomingCallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".service.CallHandlerService"
-            android:permission="android.permission.BIND_SCREENING_SERVICE"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.telecom.CallScreeningService" />
-            </intent-filter>
-
-            <!-- Метаданные для CallScreeningService -->
-            <meta-data
-                android:name="android.telecom.CallScreeningService"
-                android:value="true" />
-        </service>
+            android:exported="false"
+            android:foregroundServiceType="phoneCall" />
 
         <service
             android:name=".service.ListenerService"
@@ -78,6 +87,14 @@
             android:exported="false"
             android:enabled="true"
             android:stopWithTask="false" />
+
+        <receiver
+            android:name=".service.BootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

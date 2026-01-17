@@ -1,5 +1,6 @@
 package com.me.callping.ui.pairing.scan
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.me.callping.core.pairing.PairedDevice
@@ -21,11 +22,14 @@ class ScanQrViewModel : ViewModel() {
                 val json = JSONObject(text)
 
                 val device = PairedDevice(
-                    id = json.getString("serviceUuid"),
+                    id = json.getString("deviceId"),
                     name = json.getString("deviceName")
                 )
 
                 _state.value = ScanQrState.Success(device)
+
+                Log.d("onQrScanned", "Scanned successful")
+                Log.d("onQrScanned", device.id + " " + device.name)
             } catch (e: Exception) {
                 _state.value = ScanQrState.Error(e.message ?: "Invalid QR code")
             }
