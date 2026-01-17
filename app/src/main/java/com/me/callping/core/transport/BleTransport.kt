@@ -38,21 +38,37 @@ class BleTransport (
     }
 
     override fun isAvailable(): Boolean {
-        val adapterExists = bluetoothAdapter != null
-        val enabled = bluetoothAdapter?.isEnabled == true
-        val advSupported = bluetoothAdapter?.isMultipleAdvertisementSupported == true
+        val adapter = bluetoothAdapter
+        if (adapter == null) {
+            Log.e(TAG, "Bluetooth adapter is NULL")
+            return false
+        }
 
-        Log.d(TAG, "BLE check: adapter=$adapterExists enabled=$enabled advSupported=$advSupported")
+        if (!adapter.isEnabled) {
+            Log.e(TAG, "Bluetooth is DISABLED")
+            return false
+        }
 
-        return adapterExists && enabled && advSupported
+        if (!adapter.isMultipleAdvertisementSupported) {
+            Log.e(TAG, "BLE advertising NOT supported on this device")
+            return false
+        }
 
+        return true
     }
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_ADVERTISE)
     override fun send(event: CallEvent) {
-        val advertiser = advertiser ?: return
+        Log.d(TAG, "send() called")
 
-        advertiser.stopAdvertising(advertiseCallback)
+        val advertiser = advertiser
+
+        if (advertiser == null) {
+            Log.e(TAG, "BLE advertiser is NULL — advertising not supported")
+            return
+        }
+
+//        advertiser.stopAdvertising(advertiseCallback)
 
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
@@ -102,7 +118,7 @@ class BleTransport (
 
         override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
             Log.d(TAG, "BLE advertising started")
-            CallEventDispatcher.retryIfPending()
+//            CallEventDispatcher.retryIfPending()
         }
 
         override fun onStartFailure(errorCode: Int) {
