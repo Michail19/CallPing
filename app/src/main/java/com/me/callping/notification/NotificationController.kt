@@ -18,9 +18,11 @@ object NotificationController {
         val channel = NotificationChannel(
             CHANNEL_ID,
             CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_LOW
+            NotificationManager.IMPORTANCE_MIN
         ).apply {
-            description = "Foreground service for listening incoming calls"
+            setSound(null, null)
+            enableVibration(false)
+            setShowBadge(false)
         }
 
         val manager =
@@ -33,10 +35,12 @@ object NotificationController {
         ensureChannel(context)
 
         return NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("Call Listener")
-            .setContentText("Listening for incoming calls")
-            .setSmallIcon(R.drawable.ic_notification)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("CallPing работает")
+            .setContentText("Ожидание событий")
             .setOngoing(true)
+            .setSilent(true)
+            .setPriority(NotificationCompat.PRIORITY_MIN)
             .build()
     }
 
@@ -44,10 +48,10 @@ object NotificationController {
         ensureChannel(context)
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle("Incoming call")
-            .setContentText("Call received on paired device")
-            .setSmallIcon(R.drawable.ic_notification)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentTitle("Входящий звонок")
+            .setContentText("Вызов принят на сопряженном устройстве") // .setContentText("Call received on paired device")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
             .build()
 
         val manager =

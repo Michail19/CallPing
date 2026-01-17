@@ -22,32 +22,26 @@ class CallHandlerService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // 1. Сразу переводим сервис в Foreground режим (обязательно для Android 10+)
+        // Сразу переводим сервис в Foreground режим (обязательно для Android 10+)
         startForeground(1, createNotification())
 
         val number = intent?.getStringExtra("EXTRA_NUMBER")
         Log.d(TAG, "Processing incoming call from: $number")
 
-        // 2. Выполняем вашу логику отправки через BLE
+        // Выполняем вашу логику отправки через BLE
         CallEventDispatcher.handleIncomingCall()
-
-        // 3. Если задача разово отправить сигнал, можно остановить сервис после отправки.
-        // Если логика отправки асинхронная, вызовите stopSelf() внутри callback-а успешной отправки.
-        // stopSelf()
 
         return START_NOT_STICKY
     }
 
     private fun createNotification(): Notification {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID, "Call Notifications", NotificationManager.IMPORTANCE_LOW)
-            getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(CHANNEL_ID, "Call Notifications", NotificationManager.IMPORTANCE_LOW)
+        getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("Call Ping Active")
+            .setContentTitle("CallPing активен")
             .setContentText("Обработка входящего вызова...")
-            .setSmallIcon(R.drawable.ic_launcher_background) // Замените на вашу иконку
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .build()
     }
 
