@@ -41,7 +41,7 @@ class CallHandlerService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("CallPing активен")
             .setContentText("Обработка входящего вызова...")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.launcher_foreground_standart)
             .build()
     }
 

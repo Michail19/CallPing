@@ -49,6 +49,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CallPing"
+
         tools:targetApi="31">
 
         <!-- Главная активити -->

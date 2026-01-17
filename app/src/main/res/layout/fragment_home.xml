@@ -15,14 +15,14 @@
 
     <Button
         android:id="@+id/devicesButton"
-        android:text="My Devices"
+        android:text="Подключенные устройства"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"/>
 
     <Button
         android:id="@+id/showQrButton"
-        android:text="Show My QR"
+        android:text="Показать свой QR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"/>
