@@ -10,15 +10,15 @@ import com.me.callping.R
 
 object NotificationController {
 
-    private const val CHANNEL_ID = "call_listener"
-    private const val CHANNEL_NAME = "Call Listener"
+    const val SERVICE = "service"
+    const val INCOMING_CALL = "incoming_call"
     private const val INCOMING_CALL_ID = 2001
 
-    private fun ensureChannel(context: Context) {
+    private fun ensureChannel(context: Context, CHANNEL_ID: String, CHANNEL_NAME: String, importance: Int) {
         val channel = NotificationChannel(
             CHANNEL_ID,
             CHANNEL_NAME,
-            NotificationManager.IMPORTANCE_MIN
+            importance
         ).apply {
             setSound(null, null)
             enableVibration(false)
@@ -32,9 +32,9 @@ object NotificationController {
     }
 
     fun createServiceNotification(context: Context): Notification {
-        ensureChannel(context)
+        ensureChannel(context, SERVICE, "Фоновая работа", NotificationManager.IMPORTANCE_MIN)
 
-        return NotificationCompat.Builder(context, CHANNEL_ID)
+        return NotificationCompat.Builder(context, SERVICE)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("CallPing работает")
             .setContentText("Ожидание событий")
@@ -45,9 +45,9 @@ object NotificationController {
     }
 
     fun showIncomingCall(context: Context) {
-        ensureChannel(context)
+        ensureChannel(context, INCOMING_CALL, "Входящие звонки", NotificationManager.IMPORTANCE_HIGH)
 
-        val notification = NotificationCompat.Builder(context, CHANNEL_ID)
+        val notification = NotificationCompat.Builder(context, INCOMING_CALL)
             .setContentTitle("Входящий звонок")
             .setContentText("Вызов принят на сопряженном устройстве") // .setContentText("Call received on paired device")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
