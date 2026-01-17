@@ -1,5 +1,7 @@
 package com.me.callping.ui.pairing.generate
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -28,6 +30,14 @@ class GenerateQrFragment : Fragment(R.layout.fragment_generate_qr) {
         val qrImage = view.findViewById<ImageView>(R.id.qrImage)
         val progress = view.findViewById<ProgressBar>(R.id.progress)
         val errorText = view.findViewById<TextView>(R.id.errorText)
+        val helpTextView = view.findViewById<TextView>(R.id.helpText)
+
+        helpTextView.setOnClickListener {
+            val url = "https://github.com/Michail19/CallPing/blob/main/README.md"
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
+            startActivity(intent)
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.state.collect { state ->

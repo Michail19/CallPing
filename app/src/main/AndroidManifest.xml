@@ -48,7 +48,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CallPing"
+        android:theme="@style/Theme.CallPing.NoActionBar"
         tools:targetApi="31">
 
         <!-- Главная активити -->
