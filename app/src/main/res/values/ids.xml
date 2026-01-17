@@ -2,4 +2,11 @@
 <resources>
     <item name="qrImage" type="id" />
     <item name="scanQrButton" type="id" />
+    <item name="progress" type="id" />
+    <item name="errorText" type="id" />
+    <item name="deviceName" type="id" />
+    <item name="removeButton" type="id" />
+    <item name="recycler" type="id" />
+    <item name="emptyText" type="id" />
+    <item name="action_deviceListFragment_to_scanQrFragment" type="id" />
 </resources>

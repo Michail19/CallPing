@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CallPing</string>
+    <string name="remove_device" />
 </resources>

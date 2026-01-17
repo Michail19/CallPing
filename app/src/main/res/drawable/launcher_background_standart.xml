@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Основной темный фон для контраста с иконкой -->
+    <path
+        android:fillColor="#1B5E20"
+        android:pathData="M0,0h108v108h-108z" />
+
+    <!-- Вертикальные линии сетки -->
+    <path
+        android:pathData="M9,0v108 M19,0v108 M29,0v108 M39,0v108 M49,0v108 M59,0v108 M69,0v108 M79,0v108 M89,0v108 M99,0v108"
+        android:strokeWidth="0.5"
+        android:strokeColor="#22FFFFFF" />
+
+    <!-- Горизонтальные линии сетки -->
+    <path
+        android:pathData="M0,9h108 M0,19h108 M0,29h108 M0,39h108 M0,49h108 M0,59h108 M0,69h108 M0,79h108 M0,89h108 M0,99h108"
+        android:strokeWidth="0.5"
+        android:strokeColor="#22FFFFFF" />
+
+    <!-- Акцентный квадрат в центре (зона видимости иконки) -->
+    <path
+        android:pathData="M29,29h50v50h-50z"
+        android:strokeWidth="0.8"
+        android:strokeColor="#44FFFFFF"
+        android:fillColor="#00000000" />
+
+    <!-- Диагональные направляющие для красоты -->
+    <path
+        android:pathData="M0,0L108,108 M108,0L0,108"
+        android:strokeWidth="0.3"
+        android:strokeColor="#11FFFFFF" />
+
+</vector>
