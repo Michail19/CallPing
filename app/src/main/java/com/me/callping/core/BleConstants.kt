@@ -5,18 +5,10 @@ import android.os.ParcelUuid
 object BleConstants {
 
     val SERVICE_UUID: ParcelUuid = ParcelUuid.fromString(
-        "0000b81d-0000-1000-8000-00805f9b34fb"
+        "12345678-1234-1234-1234-123456789abc"
     ) // The service's UUID is the "this is our app" token
 
-    const val MANUFACTURER_ID = 0xFFFF // Manufacturer ID — arbitrary (not conflicting)
+    const val MANUFACTURER_ID = 0x1234 // Manufacturer ID — arbitrary (not conflicting)
 
-    // Event types (payload)
-    const val EVENT_INCOMING_CALL: Byte = 0x01
-    const val EVENT_CALL_ENDED: Byte = 0x02
-
-    // Advertisement timeout
-    const val ADVERTISING_TIMEOUT_MS = 10000L // 10 секунд
-
-    // Scan settings
-    const val SCAN_PERIOD_MS = 10000L
+    const val EVENT_INCOMING_CALL: Byte = 0x01 // Event types (payload)
 }
