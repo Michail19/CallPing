@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 class ScanQrFragment : Fragment(R.layout.fragment_device_list){
 
     private val viewModel: ScanQrViewModel by viewModels()
-//    private val pairingSharedViewModel: PairingViewModel by viewModels()
 
     private val repository by lazy {
         PairedDeviceRepository(
@@ -25,16 +24,19 @@ class ScanQrFragment : Fragment(R.layout.fragment_device_list){
         )
     }
 
-    private val scanLauncher = registerForActivityResult(ScanContract()) {
-        result -> if (result.contents != null) viewModel.onQrScanned(result.contents)
+    private val scanLauncher = registerForActivityResult(ScanContract()) { result ->
+        if (result.contents == null) {
+            findNavController().navigate(
+                R.id.action_scanQrFragment_to_deviceListFragment
+            )
+        }
+        else {
+            viewModel.onQrScanned(result.contents)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        view.findViewById<Button>(R.id.scanQrButton).setOnClickListener {
-//            startScan()
-//        }
 
         startScan()
         observeState()
@@ -62,9 +64,12 @@ class ScanQrFragment : Fragment(R.layout.fragment_device_list){
                     }
 
                     is ScanQrState.Success -> {
-//                        pairingSharedViewModel.addDevice(state.device)
                         repository.addDevice(state.device)
-                        findNavController().popBackStack()
+
+                        findNavController().popBackStack(
+                            R.id.deviceListFragment,
+                            false
+                        )
                     }
 
                     is ScanQrState.Error -> {

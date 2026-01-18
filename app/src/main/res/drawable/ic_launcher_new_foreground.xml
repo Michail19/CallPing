@@ -1,0 +1,23 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Основной фон (Круг/Метка) -->
+    <path
+        android:fillColor="#66BB6A"
+        android:strokeColor="#2E7D32"
+        android:strokeWidth="2"
+        android:pathData="M54,24c-14.36,0 -26,11.64 -26,26c0,15.5 19.5,34 26,34s26,-18.5 26,-34C80,35.64 68.36,24 54,24z"/>
+
+    <!-- Иконка Bluetooth по центру -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M46,42 l16,16 l-8,8 l0,-32 l8,8 l-16,16" />
+
+</vector>

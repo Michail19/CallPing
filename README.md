@@ -143,6 +143,13 @@ CallPing — Android-приложение для сопряжения устро
 - Телефония: `CallScreeningService`
 - Уведомления: `ForegroundService`
 
+---
+
+## Ссылка на apk файл
+
+[Ссылка на пакет apk файла для установки](https://github.com/Michail19/CallPing/tree/main/app/release)
+
+
 <!-- 
 ---
 

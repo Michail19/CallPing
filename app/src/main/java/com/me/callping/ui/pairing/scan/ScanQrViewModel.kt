@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.me.callping.core.pairing.PairedDevice
+import com.me.callping.data.CryptoManager
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,7 +20,8 @@ class ScanQrViewModel : ViewModel() {
             try {
                 _state.value = ScanQrState.Scanning
 
-                val json = JSONObject(text)
+                val decrypted = CryptoManager.decrypt(text)
+                val json = JSONObject(decrypted)
 
                 val device = PairedDevice(
                     id = json.getString("deviceId"),
