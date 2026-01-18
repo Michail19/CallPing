@@ -5,10 +5,12 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.IBinder
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.me.callping.R
+import com.me.callping.core.App.Companion.appContext
 import com.me.callping.core.call.CallEventDispatcher
 import com.me.callping.core.transport.BleTransport
 import com.me.callping.core.transport.TransportManager
@@ -41,7 +43,8 @@ class CallHandlerService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("CallPing активен")
             .setContentText("Обработка входящего вызова...")
-            .setSmallIcon(R.mipmap.ic_launcher_new)
+            .setSmallIcon(R.drawable.launcher_foreground_standart)
+            .setLargeIcon(BitmapFactory.decodeResource(appContext.resources, R.mipmap.ic_launcher_new))
             .build()
     }
 
