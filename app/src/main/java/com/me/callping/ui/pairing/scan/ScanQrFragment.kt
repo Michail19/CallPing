@@ -65,7 +65,7 @@ class ScanQrFragment : Fragment(R.layout.fragment_device_list){
 
                     is ScanQrState.Success -> {
                         repository.addDevice(state.device)
-                        
+
                         findNavController().popBackStack(
                             R.id.deviceListFragment,
                             false

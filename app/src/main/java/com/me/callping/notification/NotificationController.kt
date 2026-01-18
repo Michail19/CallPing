@@ -35,7 +35,7 @@ object NotificationController {
         ensureChannel(context, SERVICE, "Фоновая работа", NotificationManager.IMPORTANCE_MIN)
 
         return NotificationCompat.Builder(context, SERVICE)
-            .setSmallIcon(R.drawable.launcher_foreground_standart)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle("CallPing работает")
             .setContentText("Ожидание событий")
             .setOngoing(true)
@@ -49,8 +49,8 @@ object NotificationController {
 
         val notification = NotificationCompat.Builder(context, INCOMING_CALL)
             .setContentTitle("Входящий звонок")
-            .setContentText("Идёт вызов на сопряженное устройство") // .setContentText("Call received on paired device")
-            .setSmallIcon(R.drawable.launcher_foreground_standart)
+            .setContentText("Идёт вызов на сопряженное устройство")
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .build()
 
