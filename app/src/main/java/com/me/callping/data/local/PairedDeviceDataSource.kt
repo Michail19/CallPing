@@ -13,6 +13,7 @@ import javax.crypto.spec.GCMParameterSpec
 import android.security.keystore.KeyProperties
 import android.security.keystore.KeyGenParameterSpec
 import java.security.KeyStore
+import java.security.SecureRandom
 import kotlin.random.Random
 
 class PairedDeviceDataSource(context: Context) {
@@ -84,8 +85,8 @@ class PairedDeviceDataSource(context: Context) {
     // --- Encryption / Decryption ---
     private fun encrypt(plainText: String): Pair<String, ByteArray> {
         val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        val iv = ByteArray(12).apply { Random.nextBytes(this) }
-        cipher.init(Cipher.ENCRYPT_MODE, key, GCMParameterSpec(GCM_TAG_LENGTH, iv))
+        cipher.init(Cipher.ENCRYPT_MODE, key)
+        val iv = cipher.iv
         val encrypted = cipher.doFinal(plainText.toByteArray(charset))
         return Base64.encodeToString(encrypted, Base64.DEFAULT) to iv
     }
@@ -109,7 +110,7 @@ class PairedDeviceDataSource(context: Context) {
         )
             .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-            .setRandomizedEncryptionRequired(true)
+            .setRandomizedEncryptionRequired(false)
             .build()
 
         keyGenerator.init(spec)
