@@ -3,6 +3,7 @@ package com.me.callping.tools
 import android.os.Build
 import android.provider.Settings
 import com.me.callping.core.App
+import com.me.callping.data.CryptoManager
 import org.json.JSONObject
 
 object QrPayloadBuilder {
@@ -15,10 +16,13 @@ object QrPayloadBuilder {
             Settings.Secure.ANDROID_ID
         )
 
-        return JSONObject().apply {
+        val json = JSONObject().apply {
+            put("v", PROTOCOL_VERSION)
             put("deviceName", Build.MODEL)
             put("deviceId", deviceId)
-            put("protocolVersion", PROTOCOL_VERSION)
+            put("ts", System.currentTimeMillis())
         }.toString()
+
+        return CryptoManager.encrypt(json)
     }
 }

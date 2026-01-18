@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.me.callping.R
@@ -36,6 +37,7 @@ object NotificationController {
 
         return NotificationCompat.Builder(context, SERVICE)
             .setSmallIcon(R.drawable.launcher_foreground_standart)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher_new))
             .setContentTitle("CallPing работает")
             .setContentText("Ожидание событий")
             .setOngoing(true)
@@ -49,8 +51,9 @@ object NotificationController {
 
         val notification = NotificationCompat.Builder(context, INCOMING_CALL)
             .setContentTitle("Входящий звонок")
-            .setContentText("Идёт вызов на сопряженное устройство") // .setContentText("Call received on paired device")
+            .setContentText("Идёт вызов на сопряженное устройство")
             .setSmallIcon(R.drawable.launcher_foreground_standart)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher_new))
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .build()
 

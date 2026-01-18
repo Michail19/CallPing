@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class GenerateQrViewModel(
-    private val payloadBuilder: QrPayloadBuilder, // = QrPayloadBuilder(),
-    private val qrGenerator: QrBitmapGenerator // = QrBitmapGenerator()
+    private val payloadBuilder: QrPayloadBuilder,
+    private val qrGenerator: QrBitmapGenerator
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<GenerateQrState>(GenerateQrState.Loading)
