@@ -30,6 +30,37 @@ class ListenerService : Service() {
         bleServer.start()
     }
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
+        if (intent?.getBooleanExtra("refresh_notification", false) == true) {
+            Log.d("ListenerService", "Refreshing foreground notification")
+
+            startForeground(
+                NOTIFICATION_ID,
+                NotificationController.createServiceNotification(this)
+            )
+
+            return START_STICKY
+        }
+
+        when {
+            intent?.getBooleanExtra("ble_restart", false) == true -> {
+                Log.d("ListenerService", "BLE restart requested")
+
+                bleServer.stop()
+                bleServer.start()
+            }
+
+            intent?.getBooleanExtra("ble_stop", false) == true -> {
+                Log.d("ListenerService", "BLE stop requested")
+
+                bleServer.stop()
+            }
+        }
+
+        return START_STICKY
+    }
+
     override fun onDestroy() {
         bleServer.stop()
         super.onDestroy()
