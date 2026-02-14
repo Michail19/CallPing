@@ -8,8 +8,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.me.callping.R
 import com.me.callping.service.ListenerService
+import com.me.callping.tools.KeepAliveWorker
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +23,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val workRequest =
+            PeriodicWorkRequestBuilder<KeepAliveWorker>(6, TimeUnit.HOURS)
+                .addTag("keep_alive")
+                .build()
+
+        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+            "keep_alive_worker",
+            ExistingPeriodicWorkPolicy.UPDATE,
+            workRequest
+        )
 
         checkAndRequestPermissions()
     }
